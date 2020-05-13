@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask_wtf import Form
-from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField
+from wtforms import StringField, IntegerField, SelectField, SelectMultipleField, DateTimeField
 from wtforms.validators import DataRequired, AnyOf, URL
 
 class ShowForm(Form):
@@ -114,7 +114,20 @@ class VenueForm(Form):
         ]
     )
     facebook_link = StringField(
-        'facebook_link', validators=[URL()]
+        'facebook_link', validators = [URL()]
+    )
+    website = StringField(
+        'website', validators = [URL()]
+    )
+    seeking_talent = SelectField(
+        'seeking_talent', validators = [DataRequired()],
+        choices=[
+            ('Yes', 'Yes'),
+            ('No', 'No')
+        ]
+    )
+    seeking_description = StringField(
+        'seeking_description'
     )
 
 class ArtistForm(Form):
@@ -181,14 +194,13 @@ class ArtistForm(Form):
         ]
     )
     phone = StringField(
-        # TODO implement validation logic for state
         'phone'
+        
     )
     image_link = StringField(
         'image_link'
     )
     genres = SelectMultipleField(
-        # TODO implement enum restriction
         'genres', validators=[DataRequired()],
         choices=[
             ('Alternative', 'Alternative'),
@@ -216,5 +228,27 @@ class ArtistForm(Form):
         # TODO implement enum restriction
         'facebook_link', validators=[URL()]
     )
+    website = StringField(
+        'website', validators=[URL()]
+    )
+    seeking_venue = SelectField(
+        'seeking_venue', validators=[DataRequired()],
+        choices=[
+            ('Yes', 'Yes'),
+            ('No', 'No')
+        ]
+    )
 
+class ShowForm(Form):
+    artist_id = IntegerField(
+        'artist_id', validators=[DataRequired()]
+    )
+    venue_id = IntegerField(
+        'city', validators=[DataRequired()]
+    )
+    start_time = DateTimeField(
+        'start_time',format="%Y-%m-%d Time %H:%M:%S",
+        default=datetime.today, validators=[DataRequired()]
+    )
 # TODO IMPLEMENT NEW ARTIST FORM AND NEW SHOW FORM
+

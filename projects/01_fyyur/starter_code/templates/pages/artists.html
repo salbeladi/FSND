@@ -10,7 +10,28 @@
 				<h5>{{ artist.name }}</h5>
 			</div>
 		</a>
+
+		<div class="btn btn-dark btn-sm">
+	<div class="btns-control">
+		<button href="/artists/{{ artist.id }}/edit" class="btn btn-primary btn-sm">Edit</button>
+		<button class="delete-button btn btn-danger btn-sm" href="/" data-id="{{ artist.id }}">Delete</button>
+	</div>
+	</div>
 	</li>
+	
 	{% endfor %}
 </ul>
+
+<script>
+	const deleteBtn = document.querySelectorAll('.delete-button');
+	for (let i = 0; i < deleteBtn.length; i++) {
+		const btn = deleteBtn[i];
+		btn.onclick = function(e) {
+		const artistId = e.target.dataset['id'];
+		fetch('/artists/' + artistId, {
+			method: 'DELETE'
+		});
+		}
+	}
+</script>
 {% endblock %}

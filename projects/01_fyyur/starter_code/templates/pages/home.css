@@ -1,3 +1,9 @@
 h1 {
 	margin-bottom: 1em;
 }
+.venue{
+	float: left;
+}
+.btns-control{
+	display: contents;
+}

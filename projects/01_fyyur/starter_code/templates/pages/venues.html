@@ -3,17 +3,34 @@
 {% block content %}
 {% for area in areas %}
 <h3>{{ area.city }}, {{ area.state }}</h3>
-	<ul class="items">
+	<ul class="items btns-control">
 		{% for venue in area.venues %}
-		<li>
+		<li class="btns-control venue">
 			<a href="/venues/{{ venue.id }}">
 				<i class="fas fa-music"></i>
 				<div class="item">
 					<h5>{{ venue.name }}</h5>
 				</div>
-			</a>
+			</a>	
+		
 		</li>
+			<div class="btns-control">
+				<button href="/venues/{{ venue.id }}/edit" class="btn btn-primary btn-sm">Edit</button>
+				<button class="delete-button btn btn-danger btn-sm" data-id="{{ venue.id }}">Delete</button>
+			</div>
 		{% endfor %}
 	</ul>
 {% endfor %}
+<script>
+			const deleteBtn = document.querySelectorAll('.delete-button');
+			for (let i = 0; i < deleteBtn.length; i++) {
+				const btn = deleteBtn[i];
+				btn.onclick = function(e) {
+				const venueId = e.target.dataset['id'];
+				fetch('/venues/' + venueId, {
+					method: 'DELETE'
+				});
+				}
+			}
+</script>
 {% endblock %}
